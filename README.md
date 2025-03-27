@@ -13,6 +13,7 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 - Latest price data
 - Average True Range (ATR) calculation
 - Running and closed trades tracking
+![Demo Website](images/7.png)
 ![Demo Website](images/2_1.png)
 ![Demo Website](images/2_2.png)
 
