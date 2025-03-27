@@ -85,13 +85,36 @@ streamlit run app.py
 - Hidden Layers: 64 and 32 neurons with ReLU activation
 - Output Layer: Single neuron for price prediction
 
+```python
+    model = keras.Sequential([
+        Dense(128, activation='relu', input_shape=(X_train_scaled.shape[1],)),
+        BatchNormalization(),
+        Dropout(0.2),
+        Dense(64, activation='relu'),
+        BatchNormalization(), 
+        Dropout(0.2),
+        Dense(32, activation='relu'),
+        Dense(1)
+    ])
+```
 ### Training Process
 - Uses Exponential Learning Rate Decay
 - Early Stopping
 - Reduce Learning Rate on Plateau
 - Huber Loss Function
 - Mean Absolute Error Metric
-
+  
+```python
+    lr_schedule = ExponentialDecay(initial_learning_rate=0.01, decay_steps=1000, decay_rate=0.9)
+    optimizer = keras.optimizers.Adam(learning_rate=lr_schedule)
+    model.compile(optimizer=optimizer, loss='huber_loss', metrics=['mae'])
+    early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+    reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=0.0001)
+    
+    # Train the Model
+    model.fit(X_train, y_train, epochs=500, batch_size=64, validation_data=(X_test, y_test),
+              callbacks=[early_stopping, reduce_lr], verbose=1)
+```
 ## 📊 Performance Metrics
 
 The ML model provides:
@@ -99,6 +122,7 @@ The ML model provides:
 - R² Score
 - Actual vs. Predicted Price Comparison
 - Trading Signals (Buy/Sell)
+![Demo Website](images/1.png)
 
 ## 🔒 Security Notes
 
