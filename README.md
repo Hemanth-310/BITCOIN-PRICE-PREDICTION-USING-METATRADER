@@ -4,7 +4,7 @@
 
 This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that provides comprehensive trading analytics, real-time market insights, and machine learning-powered price predictions.
 
-![Dashboard Preview](https://mql5.com/assets/icons/mt5-brand2020.svg)
+![Demo Website](images/1.png)
 
 ## ✨ Features
 
@@ -13,18 +13,22 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 - Latest price data
 - Average True Range (ATR) calculation
 - Running and closed trades tracking
+![Demo Website](images/1.png)
 
 ### 2. Account Information 💰
 - Balance and equity tracking
 - Margin details
 - Profit/Loss metrics
 - Equity curve visualization
+![Demo Website](images/1.png)
+
 
 ### 3. Machine Learning Predictions 🤖
 - Neural network-based price prediction
 - Model performance metrics
 - Trading signal recommendations
 - Stop loss and take profit suggestions
+![Demo Website](images/1.png)
 
 ## 🛠 Prerequisites
 
@@ -50,13 +54,7 @@ git clone https://github.com/yourusername/mt5-trading-dashboard.git
 cd mt5-trading-dashboard
 ```
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-```
-
-3. Install required packages:
+2. Install required packages:
 ```bash
 pip install -r requirements.txt
 ```
@@ -65,7 +63,7 @@ pip install -r requirements.txt
 
 1. Start the Streamlit application:
 ```bash
-streamlit run mt5_dashboard.py
+streamlit run app.py
 ```
 
 2. In the sidebar, enter your MetaTrader 5 credentials:
