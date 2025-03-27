@@ -1,4 +1,4 @@
-# 📊 MT5 Trading Dashboard
+# 📊 BITCOIN PRICE PREDICTION USING METATRADER
 
 ## 🚀 Overview
 
