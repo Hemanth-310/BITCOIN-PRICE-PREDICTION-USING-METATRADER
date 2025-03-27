@@ -20,7 +20,9 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 - Margin details
 - Profit/Loss metrics
 - Equity curve visualization
-![Demo Website](images/1.png)
+![Demo Website](images/2_1.png)
+![Demo Website](images/2_2.png)
+
 
 
 ### 3. Machine Learning Predictions 🤖
