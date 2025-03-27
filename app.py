@@ -300,8 +300,8 @@ def plot_model_performance(actual, predicted):
 with st.sidebar:
     st.header("📊 MT5 Connection")
     with st.form("login_form"):
-        account_number = st.number_input("Account Number", min_value=1, value=203704571)
-        password = st.text_input("Password", type="password", value="Kavin@2004")
+        account_number = st.number_input("Account Number", min_value=1, value=12345678)
+        password = st.text_input("Password", type="password", value="Your_password")
         server = st.text_input("Server", value="Exness-MT5Trial7")
         symbol = st.text_input("Symbol", value="BTCUSDm")
         
