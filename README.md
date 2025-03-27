@@ -13,15 +13,16 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 - Latest price data
 - Average True Range (ATR) calculation
 - Running and closed trades tracking
-![Demo Website](images/1.png)
+![Demo Website](images/2_1.png)
+![Demo Website](images/2_2.png)
+
 
 ### 2. Account Information 💰
 - Balance and equity tracking
 - Margin details
 - Profit/Loss metrics
 - Equity curve visualization
-![Demo Website](images/2_1.png)
-![Demo Website](images/2_2.png)
+![Demo Website](images/3.png)
 
 
 
@@ -30,7 +31,7 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 - Model performance metrics
 - Trading signal recommendations
 - Stop loss and take profit suggestions
-![Demo Website](images/1.png)
+![Demo Website](images/4.jpeg)
 
 ## 🛠 Prerequisites
 
@@ -52,8 +53,8 @@ This MetaTrader 5 Trading Dashboard is a powerful Streamlit application that pro
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/mt5-trading-dashboard.git
-cd mt5-trading-dashboard
+git clone https://github.com/Hemanth-310/MetaTrader.git
+cd MetaTrader
 ```
 
 2. Install required packages:
@@ -72,7 +73,7 @@ streamlit run app.py
 - Account Number
 - Password
 - Server
-- Symbol (e.g., BTCUSDm)
+- Symbol (e.g., BTCUSDm, XAUUSDm)
 - Timeframe
 - Number of bars to analyze
 
@@ -124,7 +125,8 @@ The ML model provides:
 - R² Score
 - Actual vs. Predicted Price Comparison
 - Trading Signals (Buy/Sell)
-![Demo Website](images/1.png)
+![Demo Website](images/5.png)
+![Demo Website](images/6.png)
 
 ## 🔒 Security Notes
 
@@ -135,23 +137,13 @@ The ML model provides:
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request
 
 ## ⚠️ Disclaimer
 
 Trading involves financial risk. This dashboard is for educational and analytical purposes. Always conduct your own research and consult financial advisors before making trading decisions.
 
-## 📞 Support
 
-For issues or questions, please open a GitHub issue or contact the repository maintainer.
-
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-🌟 Star this repository if you find it helpful!
