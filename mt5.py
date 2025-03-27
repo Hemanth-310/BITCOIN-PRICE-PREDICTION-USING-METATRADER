@@ -20,8 +20,8 @@ import statistics
 import threading
 
 # ✅ MT5 Account Credentials
-ACCOUNT_NUMBER = 203704571
-PASSWORD = "Kavin@2004"
+ACCOUNT_NUMBER = 12345678
+PASSWORD = "your_password"
 SERVER = "Exness-MT5Trial7"
 SYMBOL = "BTCUSDm"
 
