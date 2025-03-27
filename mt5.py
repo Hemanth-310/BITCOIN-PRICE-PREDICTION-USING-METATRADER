@@ -19,18 +19,18 @@ import numpy as np
 import statistics
 import threading
 
-# ✅ MT5 Account Credentials
+# MT5 Account Credentials
 ACCOUNT_NUMBER = 12345678
 PASSWORD = "your_password"
 SERVER = "Exness-MT5Trial7"
 SYMBOL = "BTCUSDm"
 
-# ✅ Connect to MT5
+# Connect to MT5
 if not mt5.initialize():
     print("❌ MT5 initialization failed")
     quit()
 
-# ✅ Login to MT5
+# Login to MT5
 if not mt5.login(ACCOUNT_NUMBER, password=PASSWORD, server=SERVER):
     print("❌ Login failed! Check your credentials.")
     mt5.shutdown()
@@ -38,13 +38,13 @@ if not mt5.login(ACCOUNT_NUMBER, password=PASSWORD, server=SERVER):
 else:
     print(f"✅ Successfully logged into MT5 Account: {ACCOUNT_NUMBER}")
 
-# ✅ Fetch Account Information
+# Fetch Account Information
 def get_account_info():
     account_info = mt5.account_info()
     if account_info is not None:
         print(f"💰 Balance: {account_info.balance}, Equity: {account_info.equity}, Margin: {account_info.margin}")
 
-# ✅ Fetch Open Trades
+# Fetch Open Trades
 def get_open_trades():
     open_trades = mt5.positions_get()
     if open_trades:
@@ -54,7 +54,7 @@ def get_open_trades():
     else:
         print("✅ No running trades")
 
-# ✅ Fetch Closed Trades
+# Fetch Closed Trades
 def get_closed_trades():
     closed_trades = mt5.history_deals_get(datetime(2024, 1, 1), datetime.now())
     if closed_trades:
@@ -64,7 +64,7 @@ def get_closed_trades():
     else:
         print("✅ No closed trades")
 
-# ✅ Fetch Candlestick Data
+# Fetch Candlestick Data
 def fetch_candle_data(symbol, timeframe, bars):
     rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, bars)
     if rates is None:
@@ -75,13 +75,13 @@ def fetch_candle_data(symbol, timeframe, bars):
     df.set_index("time", inplace=True)
     return df
 
-# ✅ Plot Candlestick Chart
+# Plot Candlestick Chart
 def plot_candles(df, title):
     if df is not None:
         mpf.plot(df, type="candle", style="charles", volume=False,
                  title=title, ylabel="Price (USD)", figsize=(12, 6))
 
-# ✅ Helper function to calculate ATR (Average True Range)
+# Helper function to calculate ATR (Average True Range)
 def calculate_atr(symbol, timeframe, period=14):
     """Calculate Average True Range for dynamic stop loss/take profit"""
     rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, period + 1)
@@ -102,7 +102,7 @@ def calculate_atr(symbol, timeframe, period=14):
     atr = df['tr'].mean()
     return atr
 
-# ✅ Calculate Risk Reward Ratio
+# Calculate Risk Reward Ratio
 def calculate_risk_reward(entry_price, stop_loss, take_profit, order_type):
     """Calculate risk-to-reward ratio for a trade"""
     if order_type == "buy":
@@ -115,7 +115,7 @@ def calculate_risk_reward(entry_price, stop_loss, take_profit, order_type):
     rr_ratio = reward / risk if risk != 0 else 0
     return rr_ratio
 
-# ✅ Calculate Win Rate From Past Hour
+# Calculate Win Rate From Past Hour
 def calculate_win_rate(symbol, timeframe=mt5.TIMEFRAME_M1, min_win_rate=33.33):
     """Analyze past hour's data to determine win rate for our strategy"""
     # Get past hour's data
@@ -157,13 +157,13 @@ def calculate_win_rate(symbol, timeframe=mt5.TIMEFRAME_M1, min_win_rate=33.33):
     print(f"🎯 Past Hour Win Rate: {win_rate:.2f}% (from {total_trades} trades)")
     return win_rate >= min_win_rate
 
-# ✅ Fetch and Plot Candlestick Charts
+# Fetch and Plot Candlestick Charts
 plot_candles(fetch_candle_data(SYMBOL, mt5.TIMEFRAME_M1, 1440), "1-Minute (Last 1 Day)")
 plot_candles(fetch_candle_data(SYMBOL, mt5.TIMEFRAME_D1, 30), "1-Day (Last 1 Month)")
 plot_candles(fetch_candle_data(SYMBOL, mt5.TIMEFRAME_W1, 12), "1-Week (Last 3 Months)")
 plot_candles(fetch_candle_data(SYMBOL, mt5.TIMEFRAME_MN1, 12), "1-Month (Last 1 Year)")
 
-# ✅ Machine Learning Model
+# Machine Learning Model
 def train_ml_model():
     df = fetch_candle_data(SYMBOL, mt5.TIMEFRAME_M1, 5000)
     if df is None:
@@ -178,7 +178,7 @@ def train_ml_model():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # ✅ Fix MinMaxScaler error & properly scale both X & y
+    # Fix MinMaxScaler error & properly scale both X & y
     scaler_X = MinMaxScaler()
     scaler_y = MinMaxScaler()
 
@@ -188,7 +188,7 @@ def train_ml_model():
     y_train = scaler_y.fit_transform(y_train).flatten()
     y_test = scaler_y.transform(y_test).flatten()
 
-    # ✅ Optimized Neural Network
+    # Optimized Neural Network
     model = keras.Sequential([
         Dense(128, activation='relu', input_shape=(X_train.shape[1],)),
         BatchNormalization(),
@@ -200,22 +200,22 @@ def train_ml_model():
         Dense(1)
     ])
 
-    # ✅ Use Learning Rate Decay
+    # Use Learning Rate Decay
     lr_schedule = ExponentialDecay(initial_learning_rate=0.01, decay_steps=1000, decay_rate=0.9)
     optimizer = keras.optimizers.Adam(learning_rate=lr_schedule)
 
-    # ✅ Use Huber Loss (robust to outliers)
+    # Use Huber Loss (robust to outliers)
     model.compile(optimizer=optimizer, loss='huber_loss', metrics=['mae'])
 
-    # ✅ Callbacks: Early Stopping & Reduce LR on Plateau
+    # Callbacks: Early Stopping & Reduce LR on Plateau
     early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=0.0001)
     
-    # ✅ Train the Model
+    # Train the Model
     model.fit(X_train, y_train, epochs=500, batch_size=64, validation_data=(X_test, y_test),
               callbacks=[early_stopping, reduce_lr], verbose=1)
 
-    # ✅ Predict & Inverse Transform y_pred
+    # Predict & Inverse Transform y_pred
     y_pred = model.predict(X_test)
     y_pred = scaler_y.inverse_transform(y_pred.reshape(-1, 1)).flatten()
     y_test = scaler_y.inverse_transform(y_test.reshape(-1, 1)).flatten()
@@ -229,7 +229,7 @@ def train_ml_model():
 
     return model, X_train, scaler_X, scaler_y  # Return scalers for later use
 
-# ✅ Backtesting
+# Backtesting
 def backtest(model, X):
     if model is None:
         print("❌ No trained model found. Skipping backtest.")
@@ -245,7 +245,7 @@ def backtest(model, X):
     print("\n📊 Backtesting Results (Last 10 Predictions):")
     print(df_results.tail(10))
 
-# ✅ Place Trade Manually (Original)
+# Place Trade Manually (Original)
 def place_trade(order_type, lot_size=0.01, slippage=2):
     price = mt5.symbol_info_tick(SYMBOL).ask if order_type == "buy" else mt5.symbol_info_tick(SYMBOL).bid
     order_type_mt5 = mt5.ORDER_TYPE_BUY if order_type == "buy" else mt5.ORDER_TYPE_SELL
@@ -268,7 +268,7 @@ def place_trade(order_type, lot_size=0.01, slippage=2):
     else:
         print(f"❌ Trade Failed: {result.comment}")
 
-# ✅ Enhanced Place Trade with Risk Management (1:2 risk-reward)
+# Enhanced Place Trade with Risk Management (1:2 risk-reward)
 def place_trade_with_risk_management(order_type, lot_size=0.01, risk_reward_ratio=2.0, slippage=2):
     """Place trade with proper risk management (1:2 risk-reward ratio)"""
     # Get current price
@@ -324,7 +324,7 @@ def place_trade_with_risk_management(order_type, lot_size=0.01, risk_reward_rati
         print(f"❌ Trade Failed: {result.comment} (code: {result.retcode})")
         return False
 
-# ✅ Enhanced Automatic Trading with Win Rate Check and Risk Management
+# Enhanced Automatic Trading with Win Rate Check and Risk Management
 def auto_trade():
     model, X, scaler_X, scaler_y = train_ml_model()
     backtest(model, X)
@@ -372,11 +372,11 @@ def auto_trade():
         print("\n⏳ Waiting for next minute...")
         time.sleep(60)
 
-# ✅ Run auto-trading in background
+# Run auto-trading in background
 trading_thread = threading.Thread(target=auto_trade, daemon=True)
 trading_thread.start()
 
-# ✅ Enhanced Manual Trade Option
+# Enhanced Manual Trade Option
 while True:
     action = input("\nEnter 'buy' or 'sell' to place trade, 'simple' for simple trade without risk management, or 'exit' to quit: ").strip().lower()
     
